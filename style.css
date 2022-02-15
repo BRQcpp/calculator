@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url(fonts/Montserrat-VariableFont_wght.ttf);
+}
+
+* {
+    font-family: inherit;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0px;
+    background-color: #494566;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+}
+
+
+.calculator-container {
+    border: 2px solid black;
+    border-radius: 8px 8px 0px 0px;
+    background-color: #242424;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 70px 40px;
+}
+
+.display-container {
+    display: flex;
+    width: 100%;
+}
+
+.upper-border {
+    width: 440px;
+    height: 50px;
+}
+
+.side-border {
+    width: 50px;
+}
+
+.side-border, .operation-display {
+    height: 100px;
+}
+
+.operation-display {
+
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    height: 160px;
+    width: 390px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    height: 40%;
+    border-bottom: 1px solid black;
+}
+
+.ui-output {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 346px;
+    height: 60%;
+    font-size: 70px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.number-Output, .operation-Output, .result-Content {
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+    height: 100%;
+    //direction:rtl;
+}
+
+.keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 230px;
+    padding-bottom: 40px;
+}
+
+.keyboard-button {
+    margin: 5px;
+    width: 70px;
+    height: 60px;
+    background-color: #363636;
+    font-size: 35px;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    transition: 0.1s;
+}
+
+.keyboard-button:hover {
+    background-color: #323232;
+}
+
+.keyboard-button-clicked {
+    -moz-transform: translate(0.2px, 0.2px);
+    -webkit-transform: translate(0.2px, 0.2px);
+    -o-transform: translate(0.2px, 0.2px);
+    -ms-transform: translate(0.2px, 0.2px);
+    transform: translate(0.2px, 0.2px);
+}
+
+.calculate-result {
+    width: 150px;
+    height: 60px;
+}
+
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+}
