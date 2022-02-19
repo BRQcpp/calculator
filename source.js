@@ -100,16 +100,22 @@ function resolveCalculation()
             else 
             {
                 resolve = false;
-                generateDivisionAlert();
+                generateAlert('Division by 0 is undefined');
             }
 
         } break;
     }
 
+    if(isNaN(result))
+    {
+        generateAlert('Your input is wrong')
+        resolve = false;
+    }
+
     if(resolve)
     {
         resultContent.textContent = round(result);
-        firstNumber.textContent = resultContent.textContent;
+        firstNumber.textContent = (result == 'Infinity' ? '': resultContent.textContent);
         numberInput = firstNumber;
         secondNumber.textContent = '';
         operationContent.textContent = '';
@@ -194,7 +200,7 @@ function backspace()
     }
 }
 
-function generateDivisionAlert()
+function generateAlert(alertTextContent)
 {
     if(document.querySelector('.division-alert') == null)
     {
@@ -206,7 +212,7 @@ function generateDivisionAlert()
 
         let cancelButton = document.createElement('div');
         cancelButton.classList.add('cancel-button');
-        alert.textContent = 'Division by 0 is undefined';
+        alert.textContent = alertTextContent;
 
         let calculatorContainer = document.querySelector('.calculator-container');
 
