@@ -11,15 +11,19 @@
 <body>
     <div class="main-content">
         <div class="calculator-container">
-            <div class="operation-display">
+            <div class="calculation-result-display">
                 <div class="result"><span class="result-Content">0</span></div>
-                <div class="ui-output"><span class="operation-Output">+</span> <span class="number-Output"></span></div>
+                <div class="row-flex" id="calculation-Container">
+                    <span class="number-Output" id="first-number"></span>
+                    <span class="operation-output"></span>
+                    <span class="number-Output" id="second-number"></span>
+                </div>
             </div>
             <div class="keyboard-container">
                 <button class="keyboard-button" data-code="1">1</button>
                 <button class="keyboard-button" data-code="2">2</button>
                 <button class="keyboard-button" data-code="3">3</button>
-                <button class="keyboard-button" data-code="8">«</button>
+                <button class="keyboard-button" data-code="Backspace">«</button>
                 <button class="keyboard-button" data-code="c">C</button>
                 <button class="keyboard-button" data-code="4">4</button>
                 <button class="keyboard-button" data-code="5">5</button>
@@ -31,11 +35,12 @@
                 <button class="keyboard-button" data-code="9">9</button>
                 <button class="keyboard-button" data-code="*">*</button>
                 <button class="keyboard-button" data-code="/">÷</button>
-                <button class="keyboard-button" data-code="=">=</button>
+                <button class="keyboard-button" data-code="!">-/+</button>
                 <button class="keyboard-button" data-code="0">0</button>
                 <button class="keyboard-button" data-code=",">,</button>
                 <button class="keyboard-button" data-code="^">^</button>
                 <button class="keyboard-button" data-code="√">√</button>
+                <button class="keyboard-button calculate-button" data-code="Enter"> = </button>
             </div>
         </div>
     </div>
