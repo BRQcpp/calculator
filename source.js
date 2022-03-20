@@ -4,6 +4,8 @@ let firstNumber = document.getElementById('first-number');
 let secondNumber = document.getElementById('second-number');
 let resultContent = document.querySelector('.result-Content');
 let operationContent = document.querySelector('.operation-output');
+let operationKeys = document.querySelectorAll('#operation-key');
+let resolveButton = document.querySelector('.calculate-button');
 let numberInput = firstNumber;
 
 const calculationMaxFontSize =  65;
@@ -12,6 +14,8 @@ document.getElementById('calculation-Container').style.setProperty('font-size', 
 const resultMaxFontSize = 40;
 document.querySelector('.result').style.setProperty('font-size', `${resultMaxFontSize}px`);
 
+resolveButton.style.setProperty('opacity', '0.3');
+changeOpacityOfButtons();
 
 keys.forEach( key =>
 {
@@ -33,23 +37,64 @@ document.addEventListener("keydown", e =>
 
 
 
+function changeOpacityOfButtons()
+{
+    if(operationKeys[0].style.getPropertyValue('opacity') == '')
+    {
+        operationKeys.forEach( key => 
+        {
+                key.style.setProperty('opacity', '0.3');
+        });      
+    }
+    else
+    {
+        operationKeys.forEach( key => 
+            {
+                    key.style.removeProperty('opacity');
+            }); 
+    }
+}
+
 function fillOutput(key)
 {
     if(firstNumber.textContent == "")
         numberInput = firstNumber; 
 
     if(+key >= 0 && +key <= 9)
-        numberInput.textContent += key;
+    {
+        if(firstNumber.textContent == '' || isNaN(firstNumber.textContent))
+                changeOpacityOfButtons();
+    
+        numberInput.textContent += key; 
+    }
+
     else
         switch(key)
         {
-            case 'C' :; case 'c' :  clearAll(); break;
+            case 'C' :; case 'c' :
+            {
+                if(firstNumber.textContent != '')
+                {
+                    if(operationKeys[0].style.getPropertyValue('opacity') == '')
+                        changeOpacityOfButtons();
+                    clearAll(); 
+                }
+            } break;
             
-            case 'Backspace' : backspace(); break;
+            case 'Backspace' :
+            {
+                if(firstNumber.textContent != '')
+                {
+                    let removed = backspace(); 
+                    if((numberInput.textContent == '' || isNaN(firstNumber.textContent)) && !isNaN(removed))
+                        changeOpacityOfButtons();
+                }
+
+            } break;
             
             case '!' : 
             {
-                if(numberInput.textContent != '')
+                if(numberInput.textContent != '' && !isNaN(numberInput.textContent))
                     numberInput.textContent = -(+numberInput.textContent); 
             } break;
             
@@ -64,7 +109,7 @@ function fillOutput(key)
 
             case '+' :; case '-':; case '^':
             {
-                if(firstNumber.textContent != '')
+                if(firstNumber.textContent != '' && !isNaN(firstNumber.textContent))
                 {
                     operationContent.textContent = key;
                     numberInput = secondNumber; 
@@ -73,7 +118,7 @@ function fillOutput(key)
 
             case '/': 
             {
-                if(firstNumber.textContent != '')
+                if(firstNumber.textContent != '' && !isNaN(firstNumber.textContent))
                 {
                     operationContent.textContent = '÷';
                     numberInput = secondNumber; 
@@ -82,7 +127,7 @@ function fillOutput(key)
 
             case '*' :
             {
-                if(firstNumber.textContent != '')
+                if(firstNumber.textContent != '' && !isNaN(firstNumber.textContent))
                 {
                     operationContent.textContent = '×';
                     numberInput = secondNumber; 
@@ -91,7 +136,7 @@ function fillOutput(key)
 
             case '√' : 
             {
-                if(numberInput.textContent != '')
+                if(numberInput.textContent != '' && !isNaN(numberInput.textContent))
                 {
                     numberInput.textContent = round(Math.sqrt(+numberInput.textContent));
                     if(secondNumber.textContent == '')
@@ -101,10 +146,27 @@ function fillOutput(key)
 
             case 'Enter' : 
             {
-                if(firstNumber.textContent != '' && secondNumber.textContent != '' && operationContent.textContent != '')
+                if(resolveButton.style.getPropertyValue('opacity') == '')
+                {
+                    if(firstNumber.textContent != '' && secondNumber.textContent != '' && operationContent.textContent != '')
                     resolveCalculation();
+                    resolveButton.style.setProperty('opacity', '0.3');
+                }   
             } break;
-        }   
+        }  
+
+        if(numberInput == secondNumber)
+        {
+            if(!isNaN(secondNumber.textContent) && secondNumber.textContent != '')
+            {
+                if(resolveButton.style.getPropertyValue('opacity') != '')
+                    resolveButton.style.removeProperty('opacity');
+            }
+            else if(resolveButton.style.getPropertyValue('opacity') == '')
+                resolveButton.style.setProperty('opacity', '0.3');    
+        }
+
+
         setFontOverflow([firstNumber, secondNumber, operationContent], document.getElementById('calculation-Container'), calculationMaxFontSize);
 }
 
@@ -133,12 +195,6 @@ function resolveCalculation()
             }
 
         } break;
-    }
-
-    if(isNaN(result))
-    {
-        generateAlert('Your input is wrong')
-        resolve = false;
     }
 
     if(resolve)
@@ -216,16 +272,15 @@ function backspace()
     if(numberInput.textContent.length > 0)
     {
         let number = numberInput.textContent;
+        let removed = number.slice(number.length-1, number.length);
         number = number.slice(0,number.length-1);
         numberInput.textContent = number;
+        return removed;
     }
-    else
+    else if(numberInput == secondNumber)
     {
-        if(numberInput == secondNumber)
-        {
-            operationContent.textContent = "";
-            numberInput = firstNumber;
-        }
+        operationContent.textContent = "";
+        numberInput = firstNumber;
     }
 }
 
