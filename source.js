@@ -47,27 +47,56 @@ function fillOutput(key)
             
             case 'Backspace' : backspace(); break;
             
-            case '!' : numberInput.textContent = -(+numberInput.textContent); break;
-
-            case '.' :; case ',' : numberInput.textContent += '.'; break;
-
-            case '+' :; case '-':; case '*':; case '^':
+            case '!' : 
             {
-                operationContent.textContent = key;
-                numberInput = secondNumber; 
+                if(numberInput.textContent != '')
+                    numberInput.textContent = -(+numberInput.textContent); 
+            } break;
+            
+            case '.' :; case ',' : 
+            {
+                if(numberInput.textContent.indexOf('.') == -1)
+                {
+                    numberInput.textContent += '.'; 
+                }
+                
+            } break;
+
+            case '+' :; case '-':; case '^':
+            {
+                if(firstNumber.textContent != '')
+                {
+                    operationContent.textContent = key;
+                    numberInput = secondNumber; 
+                }
             } break;
 
             case '/': 
             {
-                operationContent.textContent = '÷';
-                numberInput = secondNumber; 
+                if(firstNumber.textContent != '')
+                {
+                    operationContent.textContent = '÷';
+                    numberInput = secondNumber; 
+                }
+            } break;
+
+            case '*' :
+            {
+                if(firstNumber.textContent != '')
+                {
+                    operationContent.textContent = '×';
+                    numberInput = secondNumber; 
+                }
             } break;
 
             case '√' : 
             {
-                numberInput.textContent = round(Math.sqrt(+numberInput.textContent));
-                if(secondNumber.textContent == '')
-                    resultContent.textContent = numberInput.textContent;
+                if(numberInput.textContent != '')
+                {
+                    numberInput.textContent = round(Math.sqrt(+numberInput.textContent));
+                    if(secondNumber.textContent == '')
+                        resultContent.textContent = numberInput.textContent;
+                }
             } break
 
             case 'Enter' : 
@@ -91,7 +120,7 @@ function resolveCalculation()
     {
         case '+' : result = fNumber + sNumber; break;
         case '-' : result = fNumber - sNumber; break;
-        case '*' : result = fNumber * sNumber; break;
+        case '×' : result = fNumber * sNumber; break;
         case '^' : result = Math.pow(fNumber, sNumber); break;
         case '÷' :
         {
