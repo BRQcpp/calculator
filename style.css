@@ -62,8 +62,7 @@ body {
     border: 2px solid black;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    padding: 70px 40px 40px 40px;
+    padding: 70px 40px 20px 40px;
     width: 400px;
 }
 
@@ -86,6 +85,7 @@ body {
     height: 160px;
     padding: 10px 20px;
     width: 390px;
+    margin-bottom: 30px;
 }
 
 .result {
@@ -142,4 +142,32 @@ button {
     -webkit-appearance: none;
     appearance: none;
     border: none;
+}
+
+.decimal-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    color: #6e6e6e;
+    margin-top: 10px;
+}
+
+.decimal-numbers-input {
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: #242424;
+    text-align: center;
+    padding: 3px 0px;
+    color: #6e6e6e;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 0.15;
+    padding: 2px 0px;
+    width: 1em;
 }

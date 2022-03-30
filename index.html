@@ -12,7 +12,12 @@
     <div class="main-content">
         <div class="calculator-container">
             <div class="calculation-result-display">
-                <div class="result"><span class="result-Content">0</span></div>
+                <div class="result">
+                    <span class="result-Content" id="f-number">0</span>
+                    <span class="result-Content" id="r-operation"></span>
+                    <span class="result-Content" id="s-number"></span>
+                    <span class="result-Content" id="r-result"></span>
+                </div>
                 <div class="row-flex" id="calculation-Container">
                     <span class="number-Output" id="first-number"></span>
                     <span class="operation-output"></span>
@@ -41,6 +46,10 @@
                 <button class="keyboard-button" id="operation-key" data-code="^">^</button>
                 <button class="keyboard-button" id="operation-key" data-code="√">√</button>
                 <button class="keyboard-button calculate-button" data-code="Enter"> = </button>
+            </div>
+            <div class="decimal-numbers">
+                <span>Decimal numbers</span>
+                <input class="decimal-numbers-input" type="number" aria-label="decimal-numbers-field" value="3" min="0" max="9" onkeydown="return false">      
             </div>
         </div>
     </div>

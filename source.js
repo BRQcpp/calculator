@@ -6,7 +6,9 @@ let resultContent = document.querySelector('.result-Content');
 let operationContent = document.querySelector('.operation-output');
 let operationKeys = document.querySelectorAll('#operation-key');
 let resolveButton = document.querySelector('.calculate-button');
+let decimalNumbersInput = document.querySelector('.decimal-numbers-input');
 let numberInput = firstNumber;
+let decimalNumbers = 1000; 
 
 const calculationMaxFontSize =  65;
 document.getElementById('calculation-Container').style.setProperty('font-size',  `${calculationMaxFontSize}px`);
@@ -16,6 +18,15 @@ document.querySelector('.result').style.setProperty('font-size', `${resultMaxFon
 
 resolveButton.style.setProperty('opacity', '0.3');
 changeOpacityOfButtons();
+
+decimalNumbersInput.addEventListener('change', () =>
+{
+    const inputValue = decimalNumbersInput.value; 
+    if(inputValue > decimalNumbers.toString().length-1)
+        decimalNumbers *= 10;
+    else    
+        decimalNumbers /= 10;
+});
 
 keys.forEach( key =>
 {
@@ -137,10 +148,11 @@ function fillOutput(key)
             case '√' : 
             {
                 if(numberInput.textContent != '' && !isNaN(numberInput.textContent))
-                {
-                    numberInput.textContent = round(Math.sqrt(+numberInput.textContent));
+                {   
+                    let result =  Math.round((Math.sqrt(+numberInput.textContent) + Number.EPSILON) * decimalNumbers) / decimalNumbers;
                     if(secondNumber.textContent == '')
-                        resultContent.textContent = numberInput.textContent;
+                        resultContent.textContent = '√' + numberInput.textContent + '=' + result;
+                    numberInput.textContent = result;
                 }
             } break
 
@@ -199,8 +211,9 @@ function resolveCalculation()
 
     if(resolve)
     {
-        resultContent.textContent = round(result);
-        firstNumber.textContent = (result == 'Infinity' ? '': resultContent.textContent);
+        result = Math.round((result + Number.EPSILON) * decimalNumbers) / decimalNumbers;
+        resultContent.textContent = fNumber + operationContent.textContent + sNumber + '=' + result;
+        firstNumber.textContent = (result == 'Infinity' ? '': result);
         numberInput = firstNumber;
         secondNumber.textContent = '';
         operationContent.textContent = '';
